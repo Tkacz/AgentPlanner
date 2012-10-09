@@ -1,0 +1,61 @@
+BAZA DANYCH
+
+Wykładowcy (Teachers):
+1. Tytuły;
+2. Imię;
+3. Nazwisko;
+4. Nieobecność (czas od kiedy do kiedy);
+5. Max ilość godzin dziennie;
+6. Min ilość godzin dziennie;
+7. Max ilość godzin pod rząd;
+8. Max ilość okienek w ciągu dnia;
+9. Max ilość okienek w ciągu tygodnia;
+10. Priorytety dni;
+11. Priorytety jednostek czasowych w ciągu dnia;
+(Punkt 10 i 11 do przemyślenia, czyli sposób przechowywania tych informacji)
+
+
+Przedmioty (Subjects):
+1. Nazwa;
+2. Typ (wyk, ćw, lab);
+3. Rodzaj (standard, fakultet, seminarium, monograf, etc) - id z tabeli SubTypes;
+4. Czas trwania;
+5. Wyposażenie: każda uczelnia może mieć własne wymagania co do wyposażenia, w zależności od potrzeb, np. oprócz standardowych rzutników, tablic, komputerów, etc., może być sprzęt specjalistyczny np. do badań fizycznych, chemicznych, czy biologicznych. Dlatego postanowiłem, że sprzęt będzie dodawany poprzez system i zapisywany w specjalnej tabeli bazy danych (Equipment). Tabela ta przyda się również np. przy rezerwacji sprzętu w późniejszym module "rezerwacja sprzętu i sal";
+
+
+Typy zajęć (SubTypes):
+1. Nazwa/Rodzaj (standard, fakultet, seminarium, monograf, etc);
+2. Priorytet (W zależności od rodzaju, czyli jak ważny jest przedmiot, np. przedmiot obowiązkowy ma wyższy priorytet niż fakultet).
+
+
+Wyposażenie (Equipment):
+1. Symbol;
+2. Nazwa;
+3. Rodzaj;
+4. Sala;
+5. ...
+
+
+Sale (Rooms):
+1. Nr.;
+2. Pojemność;
+3. Lista sprzętu (w osobnej tabeli);
+
+
+Budynki:
+1. Symbol;
+2. Nazwa;
+
+
+Plan (Schedule):
+1. Dni (na ile dni układamy plan);
+2. Ilość zajęć;
+3. Czas trwania jednostki zajęciowej;
+3. Czas rozpoczęcia bloku zajęć;
+4. ...
+
+
+Grupy (Groups):
+1. Symbol;
+2. Ilość studentów;
+3. Typ (wykład, ćwiczenia, laboratoria, etc);
