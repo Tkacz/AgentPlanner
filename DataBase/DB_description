@@ -4,7 +4,7 @@ Wykładowcy (Teachers):
 1. Tytuły;
 2. Imię;
 3. Nazwisko;
-4. Nieobecność (czas od kiedy do kiedy);
+# 4. Nieobecność (czas od kiedy do kiedy); (nieobecności w osobnej tabeli)
 5. Max ilość godzin dziennie;
 6. Min ilość godzin dziennie;
 7. Max ilość godzin pod rząd;
@@ -13,6 +13,13 @@ Wykładowcy (Teachers):
 10. Priorytety dni;
 11. Priorytety jednostek czasowych w ciągu dnia;
 (Punkt 10 i 11 do przemyślenia, czyli sposób przechowywania tych informacji)
+
+(nieobecności w osobnej tabeli)
+Nieobecności (Absences):
+1. teacher_id;
+2. Date;
+3. hours (???);
+
 
 
 Przedmioty (Subjects):
@@ -45,6 +52,7 @@ Sale (Rooms):
 Budynki:
 1. Symbol;
 2. Nazwa;
+3. Adres;
 
 
 Plan (Schedule):

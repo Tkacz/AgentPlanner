@@ -1,0 +1,2 @@
+DELETE FROM Plan;
+DELETE FROM RejectGroups;
