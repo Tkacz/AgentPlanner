@@ -1,8 +1,6 @@
 AgentPlanner
 
-Nowo utworzone repozytorium projektu. Na chwilę obecną są niedokończone notatki na tematy:
-- dlaczego agenty
-- wytyczne/ograniczenia
-- baza danych
-
-Wkrótce wszystkie te punkty będą dokończone.
+Wersja układa plan. Obecnie pracuję nad:
+- poprawioną wersją sprawdzania kolizji studentów
+- sprawdzanie kolizji studentów z grup, które są wstawiani w jednym etapie negocjacji
+- wstawianie grup odrzuconych poprzez reorganizację planu
