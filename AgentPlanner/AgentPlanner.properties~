@@ -1,0 +1,7 @@
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+
+sql_connect=jdbc:mysql://127.0.0.1/schedule?characterEncoding=utf8
+sql_driver=com.mysql.jdbc.Driver
+sql_login=root
+sql_password=pass

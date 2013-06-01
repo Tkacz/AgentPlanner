@@ -1,0 +1,266 @@
+maj 19, 2013 11:28:07 PM agents.DataBaseAgent setup
+INFO: DataBaseAgent run
+maj 19, 2013 11:28:07 PM behaviours.DataBaseMySQLBehaviour <init>
+INFO: DataBaseMySQLBehaviour run
+maj 19, 2013 11:28:07 PM agentsElements.MySQLHandler <init>
+INFO: Properties loaded from the file
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler <init>
+INFO: Successful conection with DB
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol FROM Teachers;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT count(*) FROM Teachers;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T2';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T3';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T4';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T5';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T1';
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T2' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T3' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T4' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T5' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T1' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T2' ORDER BY s.sub_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T3' ORDER BY s.sub_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T4' ORDER BY s.sub_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T5' ORDER BY s.sub_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T1' ORDER BY s.sub_id;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='BW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='kompy') AND R.room_id=r.room_id) = 1 AND G.symbol='A2' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik' OR e.symbol='tabInt') AND R.room_id=r.room_id) = 2 AND G.symbol='AW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='kompy') AND R.room_id=r.room_id) = 1 AND G.symbol='C1' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik' OR e.symbol='tabInt') AND R.room_id=r.room_id) = 2 AND G.symbol='DW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='DW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='B2' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='B1' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='SEM6' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='SEM2' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='kompy') AND R.room_id=r.room_id) = 1 AND G.symbol='D2' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='EW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='kompy') AND R.room_id=r.room_id) = 1 AND G.symbol='A1' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='AW'),2, 0, 2 )
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='SEM6'),1, 1, 2 )
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='SEM6'),1, 5, 3 )
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='A1'),2, 3, 3 )
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='SEM6'),2, 2, 1 )
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='SEM2'),3, 3, 1 )
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='A1'),1, 4, 3 )
+maj 19, 2013 11:28:08 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='D2'),3, 3, 3 )
+maj 19, 2013 11:28:09 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='A1'),3, 4, 3 )
+maj 19, 2013 11:28:09 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='A1'),1, 3, 3 )
+maj 19, 2013 11:28:09 PM agentsElements.MySQLHandler execute
+INFO: Update completeINSERT INTO Plan (`group_id`, `day`, `time`, `room_no`) VALUES ((SELECT group_id FROM Groups WHERE symbol='SEM6'),0, 2, 2 )
+maj 19, 2013 11:28:09 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik' OR e.symbol='tabInt') AND R.room_id=r.room_id) = 2 AND G.symbol='CW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:09 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='SEM1' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:28:09 PM agentsElements.MySQLHandler getRoomsForGroup
+WARNING: MySQLHandler.getRoomsForGroup()
+java.sql.SQLException: Operation not allowed after ResultSet closed
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1075)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:989)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:984)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:929)
+	at com.mysql.jdbc.ResultSetImpl.checkClosed(ResultSetImpl.java:794)
+	at com.mysql.jdbc.ResultSetImpl.next(ResultSetImpl.java:7145)
+	at agentsElements.MySQLHandler.getRoomsForGroup(MySQLHandler.java:314)
+	at behaviours.DataBaseMySQLBehaviour.getRoomsForGroup(DataBaseMySQLBehaviour.java:185)
+	at behaviours.DataBaseMySQLBehaviour.action(DataBaseMySQLBehaviour.java:75)
+	at jade.core.behaviours.Behaviour.actionWrapper(Behaviour.java:344)
+	at jade.core.Agent$ActiveLifeCycle.execute(Agent.java:1532)
+	at jade.core.Agent.run(Agent.java:1471)
+	at java.lang.Thread.run(Thread.java:722)
+
+maj 19, 2013 11:37:14 PM agents.DataBaseAgent setup
+INFO: DataBaseAgent run
+maj 19, 2013 11:37:14 PM behaviours.DataBaseMySQLBehaviour <init>
+INFO: DataBaseMySQLBehaviour run
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler <init>
+INFO: Properties loaded from the file
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler <init>
+INFO: Successful conection with DB
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol FROM Teachers;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT count(*) FROM Teachers;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T4';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T1';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T4' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='days';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT val FROM Properties WHERE prop_key='times';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT no FROM Rooms;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T2';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T1' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T3';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T4' ORDER BY s.sub_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT symbol, teacher_id, daysPriority, timesPriority, maxHours, minHours, maxContHours, maxDayGaps, maxWeekGaps FROM Teachers WHERE symbol='T5';
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T2' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T1' ORDER BY s.sub_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T3' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT g.symbol, g.stud_no, s.sub_id, s.time, st.priority FROM Teachers t, TeachGroup tg, Groups g, Subjects s, SubjectTypes st WHERE t.symbol='T5' AND t.teacher_id=tg.teacher_id AND tg.group_id=g.group_id AND g.sub_id=s.sub_id AND s.subTyp_id=st.subTyp_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T2' ORDER BY s.sub_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T3' ORDER BY s.sub_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT DISTINCT s.sub_id, e.symbol FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id INNER JOIN Groups g ON tg.group_id=g.group_id INNER JOIN Subjects s ON g.sub_id=s.sub_id INNER JOIN SubEquip se ON s.sub_id=se.sub_id INNER JOIN Equipment e ON se.equip_id=e.equip_id WHERE t.symbol='T5' ORDER BY s.sub_id;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='kompy') AND R.room_id=r.room_id) = 1 AND G.symbol='C1' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='kompy') AND R.room_id=r.room_id) = 1 AND G.symbol='A2' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik' OR e.symbol='tabInt') AND R.room_id=r.room_id) = 2 AND G.symbol='AW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='BW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik' OR e.symbol='tabInt') AND R.room_id=r.room_id) = 2 AND G.symbol='DW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='A3' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler getRoomsForGroup
+WARNING: MySQLHandler.getRoomsForGroup()
+java.sql.SQLException: Operation not allowed after ResultSet closed
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1075)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:989)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:984)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:929)
+	at com.mysql.jdbc.ResultSetImpl.checkClosed(ResultSetImpl.java:794)
+	at com.mysql.jdbc.ResultSetImpl.next(ResultSetImpl.java:7145)
+	at agentsElements.MySQLHandler.getRoomsForGroup(MySQLHandler.java:338)
+	at behaviours.DataBaseMySQLBehaviour.getRoomsForGroup(DataBaseMySQLBehaviour.java:185)
+	at behaviours.DataBaseMySQLBehaviour.action(DataBaseMySQLBehaviour.java:75)
+	at jade.core.behaviours.Behaviour.actionWrapper(Behaviour.java:344)
+	at jade.core.Agent$ActiveLifeCycle.execute(Agent.java:1532)
+	at jade.core.Agent.run(Agent.java:1471)
+	at java.lang.Thread.run(Thread.java:722)
+
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='DW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='EW' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='B1' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='kompy') AND R.room_id=r.room_id) = 1 AND G.symbol='A1' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='SEM2' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='kompy') AND R.room_id=r.room_id) = 1 AND G.symbol='D2' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik') AND R.room_id=r.room_id) = 1 AND G.symbol='SEM6' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='SEM4' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='D3' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='D4' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE G.symbol='E1' AND G.stud_no<=R.capacity;
+maj 19, 2013 11:37:14 PM agentsElements.MySQLHandler select
+INFO: Select complete: SELECT R.room_id FROM Rooms R, Groups G WHERE (SELECT count(*) FROM Rooms r INNER JOIN RoomEquip re ON r.room_id=re.room_id       INNER JOIN Equipment e ON re.equip_id=e.equip_id WHERE (e.symbol='rzutnik' OR e.symbol='tabInt') AND R.room_id=r.room_id) = 2 AND G.symbol='CW' AND G.stud_no<=R.capacity;
