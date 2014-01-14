@@ -1,6 +1,5 @@
 AgentPlanner
 
-Wersja układa plan. Obecnie pracuję nad:
-- poprawioną wersją sprawdzania kolizji studentów
-- sprawdzanie kolizji studentów z grup, które są wstawiani w jednym etapie negocjacji
-- wstawianie grup odrzuconych poprzez reorganizację planu
+================================================================================
+
+Aktualna wersja nieco różni się od algorytmu przedstawionego w pracy mgr/artykule z WASA. Zmiana dotyczy sprawdzania kolizji 

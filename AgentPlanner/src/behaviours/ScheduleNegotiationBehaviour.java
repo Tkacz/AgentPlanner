@@ -230,6 +230,9 @@ public class ScheduleNegotiationBehaviour extends CyclicBehaviour {
 	checkCollisionsOfStudents();
     }
     
+    /**
+     * Sprawdzanie kolizji dla propozycji z początku posortowanej listy.
+     */
     private void checkCollisionsOfStudents() {
 	if(!proposalsInPlan.isEmpty()) {
 	    ACLMessage msg = new ACLMessage(ACLMessage.QUERY_REF);
