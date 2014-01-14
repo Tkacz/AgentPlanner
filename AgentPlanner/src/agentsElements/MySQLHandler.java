@@ -4,11 +4,11 @@
  */
 package agentsElements;
 
-import java.sql.*;
 import jade.util.Logger;
 import jade.util.leap.Properties;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -24,7 +24,7 @@ public class MySQLHandler {
     private static Statement st;
     private final String sql_login;
     private final String sql_password;
-    private Logger logger;
+    private final Logger logger;
     private ResultSet rs;
     
     private Properties properties;
@@ -35,7 +35,7 @@ public class MySQLHandler {
         con = null;
         
         if (properties.isEmpty()) {
-            sql_connect = "jdbc:mysql://localhost/schedule?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true";
+            sql_connect = "jdbc:mysql://localhost/scheduleMFI?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true";
             sql_driver = "com.mysql.jdbc.Driver";
             sql_login = "root";
             sql_password = "pass";
@@ -143,6 +143,7 @@ public class MySQLHandler {
             rs.beforeFirst();
         } catch (SQLException ex) {
             logger.log(Level.WARNING, comm, ex);
+            System.err.println(ex);
         }
     }
 
@@ -173,6 +174,7 @@ public class MySQLHandler {
             st.execute(comm);
         } catch (SQLException ex) {
             logger.log(Level.WARNING, "executeUpdate Exception", ex);
+            System.err.println(ex);
         }
     }
     
@@ -514,6 +516,33 @@ public class MySQLHandler {
         }
     }
     
+    public ArrayList<Integer> getStudentIdsOfGroup(String group) {
+        String query = "SELECT s.stud_id FROM Groups g, StudGroup sg, Students s"
+                + " WHERE g.group_id=sg.group_id AND sg.stud_id=s.stud_id"
+                + " AND g.symbol='" + group  +"';";
+        ArrayList<Integer> result = new ArrayList<>();
+        select(query);
+        if (rs != null) {
+            try {
+                while (rs.next()) {
+                    result.add(rs.getInt(1));
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.WARNING, "MySQLHandler.getAllRoomNumbers()", ex);
+                return null;
+            }
+            
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                logger.log(Level.WARNING, "MySQLHandler.getRoomsForGroup()", ex);
+            }
+            return result;
+        } else {
+            return null;
+        }
+    }
+    
     /**
      * 
      * @param group Symbol grupy.
@@ -571,16 +600,80 @@ public class MySQLHandler {
      * @param group Symbol grupy.
      * @param day Dzień.
      * @param time Czas.
+     * @param studIds
      * @return Liczba studentów, którzy mają kolizję.
      */
-    public Integer getCollisionStudentsNumber(String group, int day, int time) {
-        String query = "SELECT count(*)"
+    public Integer getCollisionStudentsNumber(String group, int day, int time, ArrayList<Integer> studIds) {        
+        String query = "SELECT DISTINCT count(s.stud_id)"
                 + " FROM Students s INNER JOIN StudGroup sg ON s.stud_id=sg.stud_id"
                 + " INNER JOIN Groups g ON sg.group_id=g.group_id"
                 + " INNER JOIN Plan p ON g.group_id=p.group_id"
-                + " WHERE g.symbol='" + group + "'"
-                + " AND p.day=" + day
-                + " AND p.time=" + time + ";";
+                + " WHERE g.symbol<>'" + group + "'"
+                + " AND p.day=" + day + " AND p.time=" + time;
+
+        int size = studIds.size();
+        if (size == 0) {
+            return 0;
+        } else if(size == 1) {
+            query += " AND s.stud_id=" + studIds.get(0) + ";";
+        } else {
+            query += " AND ( s.stud_id=" + studIds.get(0);
+            for (int i = 1; i < size; i++) {
+                query += " OR s.stud_id=" + studIds.get(i);
+            }
+            query += " OR s.stud_id=" + studIds.get(size-1) + ");";
+        }
+        
+        select(query);
+        if (rs != null) {
+            try {
+                rs.next();
+                int result = rs.getInt(1);
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    logger.log(Level.WARNING, "MySQLHandler.getRoomsForGroup()", ex);
+                }
+                return result;
+            } catch (SQLException ex) {
+                logger.log(Level.WARNING, "MySQLHandler.getTotalTeachersNumber()", ex);
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+    
+    /**
+     * Sprawdza ilu studentów, powiązanych z daną grupą ma w tym czasie kolizję.
+     * @param group Symbol grupy.
+     * @param group2 Symbol grupy, której dodatkowo nie bierzemy pod uwagę (przydatnie przy sprawdzaniu kolizji przy zamianie grup)
+     * @param day Dzień.
+     * @param time Czas.
+     * @param studIds
+     * @return Liczba studentów, którzy mają kolizję.
+     */
+    public Integer getCollisionStudentsNumber(String group, String group2, int day, int time, ArrayList<Integer> studIds) {        
+        String query = "SELECT DISTINCT count(s.stud_id)"
+                + " FROM Students s INNER JOIN StudGroup sg ON s.stud_id=sg.stud_id"
+                + " INNER JOIN Groups g ON sg.group_id=g.group_id"
+                + " INNER JOIN Plan p ON g.group_id=p.group_id"
+                + " WHERE g.symbol<>'" + group + "' AND g.symbol<>'" + group2 +"'"
+                + " AND p.day=" + day + " AND p.time=" + time;
+
+        int size = studIds.size();
+        if (size == 0) {
+            return 0;
+        } else if(size == 1) {
+            query += " AND s.stud_id=" + studIds.get(0) + ";";
+        } else {
+            query += " AND ( s.stud_id=" + studIds.get(0);
+            for (int i = 1; i < size; i++) {
+                query += " OR s.stud_id=" + studIds.get(i);
+            }
+            query += " OR s.stud_id=" + studIds.get(size-1) + ");";
+        }
+        
         select(query);
         if (rs != null) {
             try {
@@ -625,17 +718,45 @@ public class MySQLHandler {
         return false;
     }
     
+    public String[] getRoomer(int day, int time, int room_no) {
+        String query = "SELECT t.symbol, g.symbol"
+                + " FROM Teachers t INNER JOIN TeachGroup tg ON t.teacher_id=tg.teacher_id"
+                + " INNER JOIN Groups g ON tg.group_id=g.group_id"
+                + " INNER JOIN Plan p ON g.group_id=p.group_id"
+                + " WHERE p.day=" + day + " AND p.time=" + time + " AND p.room_no=" + room_no + ";";
+        
+        select(query);
+        try {
+            rs.next();
+            String result[] = new String[2];
+            result[0] = rs.getString(1);
+            result[1] = rs.getString(2);
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                logger.log(Level.WARNING, "MySQLHandler.getRoomGroup()", ex);
+            }
+            return result;
+        } catch (SQLException ex) {
+            logger.log(Level.WARNING, "MySQLHandler.getTotalTeachersNumber()", ex);
+            return null;
+        }
+    }
+    
     public void insertGroupIntoPlan(String group, int day, int time, int room_no) {
         String insert = "INSERT INTO Plan (`group_id`, `day`, `time`, `room_no`)"
                 + " VALUES ((SELECT group_id FROM Groups WHERE symbol='" + group + "'),"
-                + day + ", " + time + ", " + room_no + " );";
+                + day + ", " + time + ", " + room_no + ");";
         execute(insert);
     }
     
-    public void setGroupAsReject(String group, String teacher) {
-//        String insert = "INSERT INTO RejectGroups (`group_id`, `teacher_id`)"
-//                + " VALUES ('" + group + "', '" + teacher + "');";
-        
+    public void removeGroupFromPlan(String group) {
+        String delete = "DELETE p FROM Plan p, Groups g"
+                + " WHERE g.group_id=p.group_id AND g.symbol='" + group + "';";
+        execute(delete);
+    }
+    
+    public void setGroupAsReject(String group, String teacher) {        
         String insert = "INSERT INTO RejectGroups (`group_id`, `teacher_id`)"
                 + " VALUES ((SELECT group_id FROM Groups WHERE symbol='" + group + "'),"
                 + " (SELECT teacher_id FROM Teachers WHERE symbol='" + teacher + "'));";

@@ -69,6 +69,7 @@ public class ScheduleInitBehaviour extends CyclicBehaviour {
     
     private void getTotalTeachersNumberRet(int totalTeachersNo) {
         myAgent.addBehaviour(new ScheduleNegotiationBehaviour(myAgent, logger, totalTeachersNo));
+        myAgent.addBehaviour(new ScheduleSearchNewPlaceBehaviour(myAgent, logger));
         myAgent.removeBehaviour(this);
     }
 }

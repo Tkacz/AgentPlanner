@@ -6,7 +6,6 @@ package agentsElements;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  *
@@ -78,7 +77,6 @@ public class Schedule {
      * @param time Number of time.
      * @param roomNumber Room number.
      * @param newRoomer New roomer's symbol.
-     * @return false if unsuccessful or true if successful.
      */
     public void setRoomerIn(int day, int time, int roomNumber, String newRoomer) {
         this.schedule.get(day).get(time).put(roomNumber, newRoomer);// set new roomer
@@ -104,6 +102,7 @@ public class Schedule {
             int timesPriority[][], ArrayList<Integer> properRooms) {
         
         ArrayList<Place> result = new ArrayList<>();
+        int groupsInDay;
         
         if(properRooms == null) {
             return result;
@@ -127,11 +126,71 @@ public class Schedule {
                         continue;
                     }
                     
+                    ///////////// KOLIZJA Z INNĄ GRUPĄ (tego samego wykładowcy)
+                    if(isAnyGroupsInTime(day, time)) {// jeśli w tym czasie są już zajęcia to nie dodajemy do wyniku
+                        continue;
+                    }
+                    ////////////
+                    
+                    groupsInDay = getGroupsInDay(day);// jeśli tego dnia są jeszcze jakieś zajęcia
+		    evaluation += groupsInDay;
+                    
+                    if(time > 0 && isAnyGroupsInTime(day, time-1)) {// jeśli zaraz przed jest grupa prowadzona przez tego wykładowcę
+                        evaluation += 5;
+                    }
+                    
+                    if(time+1 < TIMES && isAnyGroupsInTime(day, time+1)) {// jeśli zaraz po jest grupa prowadzona przez tego wykładowcę 
+                        evaluation += 5;
+                    }
+                    
+//                    evaluation += new Random().nextInt(5);// czynnik losowy, daje nieznaczną różnicę w ocenie, ale dzięki temu przy każdym uruchomieniu wynik posortowanej listy miejsc może się nieco różnić, dzięki czemu nie ootrzymamy dokładnie takiego samego planu wynikowego
+                    
+                    result.add(new Place(day, time, roomNo, evaluation));// dodajemy ocenione miejsce
+                }
+            }
+        }
+        
+        return result;
+    }
+    
+    public ArrayList<Place> evaluateAllPlacesForGroup(int subjectPriority, int daysPriority[],
+            int timesPriority[][], ArrayList<Integer> properRooms) {
+        
+        ArrayList<Place> result = new ArrayList<>();
+        int groupsInDay;
+        
+        if(properRooms == null) {
+            return result;
+        }
+        
+        for(int day = 0; day < DAYS; day++) {
+            for(int time = 0; time < TIMES; time++) {
+                for(Integer roomNo : schedule.get(day).get(time).keySet()) {
+                    int evaluation = subjectPriority;// pierwsza ocena to priorytet przedmiotu
+                    if(!properRooms.contains(roomNo)) {// sprawdzanie, czy sala spełnia wymagania, jeśli nawet nie daje do wyniku
+                        continue;
+                    }
+                    
+                    evaluation *= daysPriority[day];// mnożenie oceny przez priorytet dnia wykładowcy
+                    if (evaluation == 0) {// jeśli cały dzień 0 to nie dodajemy do wyniku
+                        continue;
+                    }
+                    
+                    evaluation *= timesPriority[day][time];// mnożenie oceny przez priorytet czasu w danym dniu wykł.
+                    
                     ///////////// KOLIZJA Z INNĄ GRUPĄ
                     if(isAnyGroupsInTime(day, time)) {// jeśli w tym czasie są już zajęcia to nie dodajemy do wyniku
                         continue;
                     }
                     ////////////
+                    
+                    groupsInDay = getGroupsInDay(day);// jeśli tego dnia są jeszcze jakieś zajęcia
+                    if(groupsInDay >= 4) {// nie może być więcej zajęć niż 4 w ciągu dnia
+                        continue;
+                    } else {
+                        evaluation += groupsInDay;
+                    }
+                    evaluation += groupsInDay;
                     
                     if(time > 0 && isAnyGroupsInTime(day, time-1)) {// jeśli zaraz przed jest grupa prowadzona przez tego wykładowcę
                         evaluation += 5;
@@ -143,7 +202,7 @@ public class Schedule {
                     
                     evaluation += getGroupsInDay(day);// jeśli tego dnia są jeszcze jakieś zajęcia
                     
-                    evaluation += new Random().nextInt(5);// czynnik losowy, daje nieznaczną różnicę w ocenie, ale dzięki temu przy każdym uruchomieniu wynik posortowanej listy miejsc może się nieco różnić, dzięki czemu nie ootrzymamy dokładnie takiego samego planu wynikowego
+//                    evaluation += new Random().nextInt(5);// czynnik losowy, daje nieznaczną różnicę w ocenie, ale dzięki temu przy każdym uruchomieniu wynik posortowanej listy miejsc może się nieco różnić, dzięki czemu nie ootrzymamy dokładnie takiego samego planu wynikowego
                     
                     result.add(new Place(day, time, roomNo, evaluation));// dodajemy ocenione miejsce
                 }

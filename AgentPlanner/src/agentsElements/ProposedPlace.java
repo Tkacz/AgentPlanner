@@ -17,6 +17,7 @@ public class ProposedPlace implements Serializable {
     
     private static class SortProposedPlaceByPriority implements Comparator<ProposedPlace> {
 
+	@Override
         public int compare(ProposedPlace place1, ProposedPlace place2) {
             if (place1.PRIORITY < place2.PRIORITY) {
                 return 1;
@@ -30,6 +31,7 @@ public class ProposedPlace implements Serializable {
     
     private static class SortProposedPlaceByEvaluation implements Comparator<ProposedPlace> {
 
+	@Override
         public int compare(ProposedPlace place1, ProposedPlace place2) {
             if (place1.evaluation < place2.evaluation) {
                 return 1;
@@ -107,13 +109,13 @@ public class ProposedPlace implements Serializable {
 
     @Override
     public String toString() {
-        String print = "Teacher: " + this.TEACHER_SYMBOL + "\n"
-                + "Group: " + this.GROUP_SYMBOL  + "\n"
-                + "Day: " + this.DAY + "\n"
-                + "Time: " + this.TIME + "\n"
-                + "Room No: " + this.ROOM_NO + "\n"
-                + "Evaluation: " + this.evaluation + "\n"
-                + "Capacity: " + this.REQUIRED_CAPACITY;
+        String print = "Teacher: " + this.TEACHER_SYMBOL
+                + " Group: " + this.GROUP_SYMBOL
+                + " Day: " + this.DAY
+                + " Time: " + this.TIME
+                + " Room No: " + this.ROOM_NO
+                + " Evaluation: " + this.evaluation
+                + " Capacity: " + this.REQUIRED_CAPACITY;
         return print;
     }
 }

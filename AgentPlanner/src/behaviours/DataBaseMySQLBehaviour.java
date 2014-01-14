@@ -38,9 +38,13 @@ public class DataBaseMySQLBehaviour extends CyclicBehaviour {
     public static final String SET_GROUP_AS_REJECT = "SET_GROUP_AS_REJECT";
     public static final String CLOSE_CONNECTION = "CLOSE_CONNECTION";
     public static final String CHECK_COLLISIONS_OF_STUDENTS = "CHECK_COLLISIONS_OF_STUDENTS";
+    public static final String CHECK_IS_PLACE_FREE = "CHECK_IS_PLACE_FREE";
+    public static final String CHECK_COLLISIONS_OF_STUDENTS_OF_REJECT_GROUP = "CHECK_COLLISIONS_OF_STUDENTS_OF_REJECT_GROUP";
+    public static final String REJECT_GROUP_CHECK_COLLISION = "REJECT_GROUP_CHECK_COLLISION";
+    public static final String CHANGE_PLACE_IN_PLAN = "CHANGE_PLACE_IN_PLAN";
     
-    private Logger logger;
-    private MySQLHandler mysql;
+    private final Logger logger;
+    private final MySQLHandler mysql;
     
     public DataBaseMySQLBehaviour(Agent a, Logger logger) {
         super(a);
@@ -85,9 +89,23 @@ public class DataBaseMySQLBehaviour extends CyclicBehaviour {
                 }
             } else if(sender.equals("ScheduleAgent")) {
                 switch (msg.getConversationId()) {
+		    case CHECK_IS_PLACE_FREE:
+			try {
+                            checkIsPalceFree(msg, (ArrayList<ProposedPlace>) msg.getContentObject());
+                        } catch (UnreadableException ex) {
+                            logger.log(Level.WARNING, "DataBaseMySQLBehaviour.action()", ex);
+                        }
+                        break;
                     case CHECK_COLLISIONS_OF_STUDENTS:
                         try {
-                            checkCollisionsOfStudents(msg, (ArrayList<ProposedPlace>) msg.getContentObject());
+                            checkCollisionsOfStudents(msg, (ProposedPlace) msg.getContentObject());
+                        } catch (UnreadableException ex) {
+                            logger.log(Level.WARNING, "DataBaseMySQLBehaviour.action()", ex);
+                        }
+                        break;
+                    case CHECK_COLLISIONS_OF_STUDENTS_OF_REJECT_GROUP:
+                        try {
+                            checkCollisionsOfStudents(msg, (ProposedPlace) msg.getContentObject());
                         } catch (UnreadableException ex) {
                             logger.log(Level.WARNING, "DataBaseMySQLBehaviour.action()", ex);
                         }
@@ -109,8 +127,22 @@ public class DataBaseMySQLBehaviour extends CyclicBehaviour {
                             logger.log(Level.WARNING, "DataBaseMySQLBehaviour.action()", ex);
                         }
                         break;
+                    case REJECT_GROUP_CHECK_COLLISION:
+                        try {
+                            rejectGroupCheckCollision(msg, (ProposedPlace) msg.getContentObject());
+                        } catch (UnreadableException ex) {
+                            logger.log(Level.WARNING, "DataBaseMySQLBehaviour.action()", ex);
+                        }
+                        break;
                     case CLOSE_CONNECTION:
                         mysql.close();
+                        break;
+                    case CHANGE_PLACE_IN_PLAN:
+                        try {
+                            changePlaceInPlan((Place) msg.getContentObject());
+                        } catch (UnreadableException ex) {
+                            logger.log(Level.WARNING, "DataBaseMySQLBehaviour.action()", ex);
+                        }
                         break;
                     default:
                         notUnderstandMessage(sender, msg.getConversationId());
@@ -221,6 +253,12 @@ public class DataBaseMySQLBehaviour extends CyclicBehaviour {
         mysql.insertGroupIntoPlan(place.getRoomer(), place.getDAY(), place.getTIME(), place.getROOM_NO());
     }
     
+    private void changePlaceInPlan(Place newPlace) {
+        mysql.removeGroupFromPlan(newPlace.getRoomer());
+        mysql.insertGroupIntoPlan(newPlace.getRoomer(), newPlace.getDAY(), newPlace.getTIME(),
+                newPlace.getROOM_NO());
+    }
+    
     private void getAllRooms(ACLMessage msg) {
         ACLMessage reply = msg.createReply();
         reply.setPerformative(ACLMessage.INFORM);
@@ -277,39 +315,101 @@ public class DataBaseMySQLBehaviour extends CyclicBehaviour {
         mysql.setGroupAsReject((String) data[0], (String) data[1]);
     }
     
-    private void checkCollisionsOfStudents(ACLMessage msg, ArrayList<ProposedPlace> proposedPlaces) {
-        int studentsNo;
-        int collisionStudentsNumber;
-        int additonalEvaluation;
-        int negotiationLevel = mysql.getNegotiationLevel();
-        
-        ArrayList<Object> answear = new ArrayList<>();        
-        for(ProposedPlace place : proposedPlaces) {// check and add to answear
-            studentsNo = mysql.getStudentsNumberOfGroup(place.getGROUP_SYMBOL());
-            collisionStudentsNumber = mysql.getCollisionStudentsNumber(
-                    place.getGROUP_SYMBOL(), place.getDAY(), place.getTIME());
-
-            // próg kolizyjny został przekroczony
-            if(studentsNo > 0 && negotiationLevel < (collisionStudentsNumber * 100 / studentsNo)) {
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                place.setEvaluation(0);// absolutnie nie można ustawić danej grupy w danym miejscu
-            } else {// ok, próg nie został przekroczony i zostaje dodany do oceny ogólnej
-                additonalEvaluation = (studentsNo - collisionStudentsNumber) + place.getEvaluation();
-                place.setEvaluation(additonalEvaluation);
-            }
-            
-            // spr czy w ogóle to miejsce jest wolne
+    /**
+     * Sprawdzanie czy miejsca zpropozycji są wolne. Odsyła listę symboli agentów wykładowców, którzy pytaja się o wolne miejsce.
+     * @param msg Wiadomość od agenta planu (ScheduleAgent).
+     * @param proposedPlaces Propozycje.
+     */
+    private void checkIsPalceFree(ACLMessage msg, ArrayList<ProposedPlace> proposedPlaces) {
+        ArrayList<String> answer = new ArrayList<>();        
+        for(ProposedPlace place : proposedPlaces) {// check and add to answer
+            // spr czy to miejsce jest wolne
             if(!mysql.isPlaceFree(place.getDAY(), place.getTIME(), place.getROOM_NO())) {
                 place.setEvaluation(0);// absolutnie nie można ustawić danej grupy w danym miejscu
-            }
-            
-            answear.add(place);// dodany, ponownie oceniony obiekt proponowanego miejsca
+            } else {
+		answer.add(place.getTEACHER_SYMBOL());// dodany symbol wykładowcy, który prosi o wolne miejsce
+	    }
         }
 
         ACLMessage reply = msg.createReply();// create reply
         reply.setPerformative(ACLMessage.INFORM_REF);
         try {
-            reply.setContentObject(answear);
+            reply.setContentObject(answer);
+            myAgent.send(reply);
+        } catch (IOException ex) {
+            logger.log(Level.WARNING, "DataBaseMySQLBehaviour.checkIsPlaceFree()", ex);
+        }
+    }
+    
+    private void checkCollisionsOfStudents(ACLMessage msg, ProposedPlace proposedPlace) {
+        int studentsNo;
+        int collisionStudentsNumber;
+        int negotiationLevel = mysql.getNegotiationLevel();
+        ArrayList<Integer> studIds = new ArrayList<>();
+        
+	studentsNo = mysql.getStudentsNumberOfGroup(proposedPlace.getGROUP_SYMBOL());
+	studIds.clear();
+	studIds.addAll(mysql.getStudentIdsOfGroup(proposedPlace.getGROUP_SYMBOL()));
+	collisionStudentsNumber = mysql.getCollisionStudentsNumber(
+		proposedPlace.getGROUP_SYMBOL(), proposedPlace.getDAY(), proposedPlace.getTIME(), studIds);
+
+	// próg kolizyjny został przekroczony
+	if (studentsNo > 0 && negotiationLevel < (collisionStudentsNumber * 100 / studentsNo)) {
+	    proposedPlace.setEvaluation(0);// absolutnie nie można ustawić danej grupy w danym miejscu
+	}
+
+        ACLMessage reply = msg.createReply();// create reply
+        reply.setPerformative(ACLMessage.INFORM_REF);
+        try {
+            reply.setContentObject(proposedPlace);
+            myAgent.send(reply);
+        } catch (IOException ex) {
+            logger.log(Level.WARNING, "DataBaseMySQLBehaviour.checkCollisions()", ex);
+        }
+    }
+    
+    private void rejectGroupCheckCollision(ACLMessage msg, ProposedPlace place) {
+        int studentsNo = mysql.getStudentsNumberOfGroup(place.getGROUP_SYMBOL());
+        int negotiationLevel = mysql.getNegotiationLevel();
+        int collisionStudentsNumber;
+        ArrayList<Integer> studIds = new ArrayList<>();
+        Object answer[] = new Object[3];// answer[0]: ocena; answer[1]: symbol wykładowcy, który zajmuje dane miejsce; answer[2]: symbol grupy, która zajmuje dane miejsce
+        
+        // spr czy w ogóle to miejsce jest wolne
+        if (!mysql.isPlaceFree(place.getDAY(), place.getTIME(), place.getROOM_NO())) {
+            String roomer[] = mysql.getRoomer(place.getDAY(), place.getTIME(), place.getROOM_NO());
+            answer[1] = roomer[0];
+            answer[2] = roomer[1];
+            // spr czy będzie kolizja ze studentami jeśli zamienię grupy
+            studIds.addAll(mysql.getStudentIdsOfGroup(place.getGROUP_SYMBOL()));
+            collisionStudentsNumber = mysql.getCollisionStudentsNumber(place.getGROUP_SYMBOL(),
+                    roomer[1], place.getDAY(), place.getTIME(), studIds);
+
+            // próg kolizyjny został przekroczony
+            if(studentsNo > 0 && negotiationLevel < (collisionStudentsNumber * 100 / studentsNo)) {
+                answer[0] = 0;// absolutnie nie można ustawić danej grupy w danym miejscu
+            } else {// ok, próg nie został przekroczony i zostaje dodany do oceny ogólnej
+                answer[0] = (studentsNo - collisionStudentsNumber) + place.getEvaluation();
+            }
+        } else {
+            answer[1] = null;
+            answer[2] = null;
+            studIds.addAll(mysql.getStudentIdsOfGroup(place.getGROUP_SYMBOL()));
+            collisionStudentsNumber = mysql.getCollisionStudentsNumber(
+                    place.getGROUP_SYMBOL(), place.getDAY(), place.getTIME(), studIds);
+            
+            // próg kolizyjny został przekroczony
+            if(studentsNo > 0 && negotiationLevel < (collisionStudentsNumber * 100 / studentsNo)) {
+                answer[0] = 0;// absolutnie nie można ustawić danej grupy w danym miejscu
+            } else {// ok, próg nie został przekroczony i zostaje dodany do oceny ogólnej
+                answer[0] = (studentsNo - collisionStudentsNumber) + place.getEvaluation();
+            }
+        }
+        
+        ACLMessage reply = msg.createReply();// create reply
+        reply.setPerformative(ACLMessage.INFORM_REF);
+        try {
+            reply.setContentObject(answer);
             myAgent.send(reply);
         } catch (IOException ex) {
             logger.log(Level.WARNING, "DataBaseMySQLBehaviour.checkCollisions()", ex);

@@ -144,6 +144,8 @@ public class TeacherInitBehaviour extends CyclicBehaviour {
             ((TeacherAgent) myAgent).createGroupObject(group, stud_no, subject, time, priority);
         }
         
+        ((TeacherAgent) myAgent).sortGroups();
+        
         getRoomsForGroups();
     }
     
@@ -172,7 +174,6 @@ public class TeacherInitBehaviour extends CyclicBehaviour {
         for(int i = 0, size = data.size(); i < size; i += 2) {// ustawianie każde z grup sal
             ((TeacherAgent) myAgent).setRoomsOfGroup((String) data.get(i), (ArrayList<Integer>) data.get(i+1));
         }
-        
         
         myAgent.addBehaviour(new TeacherNegotiationBehaviour(myAgent, logger));
         myAgent.removeBehaviour(this);

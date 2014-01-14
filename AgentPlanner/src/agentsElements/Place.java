@@ -17,6 +17,7 @@ public class Place implements Serializable {
 
     private static class SortPlacesByEvaluation implements Comparator<Place> {
 
+	@Override
         public int compare(Place place1, Place place2) {
             if (place1.evaluation < place2.evaluation) {
                 return 1;
